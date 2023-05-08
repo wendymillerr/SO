@@ -73,7 +73,7 @@ void* hello_world_thread(void * arg){
         3: retorne a variável "output" como resultado da thread.
     */
     /*   Trecho 3  */
-  return output;
+  return (void*)output;
 }
 
 
