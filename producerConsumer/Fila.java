@@ -9,12 +9,15 @@ public class Fila {
         this.fila = new LinkedList<Requisicao>();
         this.limite = limite;
     }
-    
+    /*
+     *  Se a fila estiver cheia, método entra em espera até que 
+     *  haja espaço na fila para a adição da requisição. 
+     */
     public synchronized void adicionar(Requisicao req) throws InterruptedException {
         while (fila.size() == limite) {
             wait();
         }
-        fila.add(req);
+        fila.add(req);// requisição é adicionada na fila
         notifyAll();
     }
     
@@ -26,4 +29,19 @@ public class Fila {
         notifyAll();
         return req;
     }
+
+    public Queue<Requisicao> getFila() {
+        return fila;
+    }
+
+    
+    public int getLimite() {
+        return limite;
+    }
+
+    public void setLimite(int limite) {
+        this.limite = limite;
+    }
+
+    
 }

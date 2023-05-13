@@ -9,33 +9,36 @@ public class Produtor implements Runnable {
         this.scanner = scanner;
     }
 
-    //coloque um metodo que retorne o tamanho da fila e faça um for para que valor receba partes até o  tamanho 
     
     @Override
     public void run() {
-        while (true) {
+        while (true) {// loop infinito para ficar lendo as entradas do usuário
             try {
-                String linha = scanner.nextLine();
-                String[] partes = linha.split(" ");
-                String tipo = partes[0];
-                System.out.println(tipo);
-                String recurso = partes[1];
-                System.out.println(recurso);
+                String linha = scanner.nextLine();// lê uma linha de texto do usuário
+                String[] partes = linha.split(" ");// divide a linha em partes usando o espaço como separador
+                String tipo = partes[0];// a primeira parte da linha é o tipo de requisição (PUT ou CLOSE)
+                String recurso = partes[1];// a segunda parte da linha é o recurso da requisição
                 String valor = null;
+
                 if (tipo.equals("PUT")) {
-                    if(partes[3]!=null){
-                        valor = partes[2] + partes[3];
-                    }else{
-                        valor = partes[2];
+
+                    valor = partes[2];
+
+                    //caso tenha mais de um valor, uni-los em um só
+                    for(int i = 3; i < partes.length; i++){
+                        if(partes[i]!=null){
+                        valor += " " + partes[i] ;// concatena o valor atual com os valores anteriores, separados por espaço
+                            
                     }
+
                     
-                    System.out.println(valor+ partes[3]);
                 }
+            }
                 Requisicao req = new Requisicao(tipo, recurso, valor);
                 fila.adicionar(req);
-                if (tipo.equals("CLOSE")) {
+                if (tipo.equals("CLOSE")) 
                     break;
-                }
+                
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

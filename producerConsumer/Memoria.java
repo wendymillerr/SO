@@ -1,5 +1,6 @@
 import java.util.HashMap;
 
+//Hashmap que armazena a requisição e o valor
 public class Memoria {
     private HashMap<String, String> recursos;
 
